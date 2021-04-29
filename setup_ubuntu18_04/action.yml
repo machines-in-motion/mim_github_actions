@@ -35,8 +35,8 @@ runs:
     - name: "pip install"
       shell: bash
       run: |
+        sudo -H pip3 install "setuptools>=40.0" && \
         sudo -H pip3 install \
-          "setuptools>=40.0" \
           colcon-common-extensions \
           treep \
           fyplot \
