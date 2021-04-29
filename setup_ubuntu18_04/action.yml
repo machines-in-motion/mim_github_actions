@@ -9,9 +9,11 @@ runs:
     #
 
     # apt dependencies.
-    - run: sudo apt update && \
-        sudo apt install -y \
-          build-essential\
+    - name: "apt install"
+      shell: bash 
+      run: |
+        sudo apt update && \
+          sudo apt install -y build-essential \
           python3-pip \
           cmake \
           libcereal-dev \
@@ -27,23 +29,25 @@ runs:
           git \
           ssh \
           lsb-release
-      shell: bash
+      
 
     # pip dependencies.
-    - run: sudo -H pip3 install \
-        "setuptools>=40.0"
-        colcon-common-extensions \
-        treep \
-        fyplot \
-        pyside2 \
-        empy \
-        flake8 \
-        m2r \
-        sphinx \
-        pyjson \
-        recommonmark \
-        sphinx_rtd_theme \
-        sphinxcontrib-moderncmakedomain \
-        breathe \
-        pytest
+    - name: "pip install"
       shell: bash
+      run: |
+        sudo -H pip3 install \
+          "setuptools>=40.0"
+          colcon-common-extensions \
+          treep \
+          fyplot \
+          pyside2 \
+          empy \
+          flake8 \
+          m2r \
+          sphinx \
+          pyjson \
+          recommonmark \
+          sphinx_rtd_theme \
+          sphinxcontrib-moderncmakedomain \
+          breathe \
+          pytest
