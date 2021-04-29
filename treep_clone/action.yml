@@ -1,0 +1,53 @@
+name: 'Treep clone'
+description: >
+   'Use "git clone" and "treep --clone" to download the desired package
+    sources.'
+
+runs:
+  using: "composite"
+  inputs:
+    treep_configurations:
+      description: 'Treep configurations to clone'
+      required: false
+      default: ''
+    projects_or_repos:
+      description: 'Semi colon (:) separated list of repositories to clone.'
+      required: false
+      default: ''
+  steps:
+    #
+    # Activate the secret ssh key
+    #
+    - uses: webfactory/ssh-agent@v0.5.2
+      with:
+        ssh-private-key: ${{ secrets.GA_SSH_PRIVATE_KEY }}
+
+    #
+    # Create the build folders
+    #
+    - name: Create separate environment for build and source dependencies.
+      run: >
+        mkdir -p ${{github.workspace}}/build &&
+        mkdir -p ${{github.workspace}}/devel/workspace/src
+
+    #
+    # Clone all.
+    #
+    - name: Clone the treep configurations.
+      shell: bash
+      working-directory: ${{github.workspace}}/devel/
+      run: >
+        IFS=':' read -ra configurations <<< "$INPUT_TREEP_CONFIGURATIONS" &&
+        for configuration in "${configurations[@]}"; do
+          git clone $configuration ;
+        done
+
+    - name: Treep clone the repositories or projects.
+      working-directory: ${{github.workspace}}/devel/
+      run: >
+        IFS=':' read -ra projects_or_repos <<< "$INPUT_PROJECTS_OR_REPOS" &&
+        for project_or_repo in "${projects_or_repos[@]}"; do
+          treep --clone $project_or_repo ;
+        done
+
+    
