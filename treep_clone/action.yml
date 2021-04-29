@@ -38,7 +38,7 @@ runs:
       run: >
         IFS=':' read -ra configurations <<< "${{ inputs.treep_configurations }}" &&
         for configuration in "${configurations[@]}"; do
-          echo git clone $configuration &&
+          echo git clone $configuration ;
           git clone $configuration ;
         done
 
@@ -48,7 +48,7 @@ runs:
       run: >
         IFS=':' read -ra projects_or_repos <<< "${{ inputs.projects_or_repos }}" &&
         for project_or_repo in "${projects_or_repos[@]}"; do
-          echo treep --clone $project_or_repo &&
+          echo treep --clone $project_or_repo ;
           treep --clone $project_or_repo ;
         done
 
