@@ -1,4 +1,4 @@
-name: 'Treep clone'
+name: 'Clone and build'
 description: '"git clone" and "treep --clone" downloading sources.'
 
 inputs:
@@ -20,8 +20,8 @@ runs:
     - name: Create separate environment for build and source dependencies.
       shell: bash
       run: >
-        mkdir -p ${{github.workspace}}/build &&
-        mkdir -p ${{github.workspace}}/devel/workspace/src
+        mkdir -p ${BUILD_FOLDER} &&
+        mkdir -p ${DEVEL_FOLDER}/workspace/src
 
     #
     # Clone all.
@@ -32,6 +32,7 @@ runs:
       run: >
         IFS=':' read -ra configurations <<< "$INPUT_TREEP_CONFIGURATIONS" &&
         for configuration in "${configurations[@]}"; do
+          echo git clone $configuration &&
           git clone $configuration ;
         done
 
@@ -41,7 +42,19 @@ runs:
       run: >
         IFS=':' read -ra projects_or_repos <<< "$INPUT_PROJECTS_OR_REPOS" &&
         for project_or_repo in "${projects_or_repos[@]}"; do
+          echo treep --clone $project_or_repo &&
           treep --clone $project_or_repo ;
         done
 
+    #
+    # Build the source dependencies
+    #
+    - name: Build the dependencies.
+      working-directory: ${{github.workspace}}/devel/workspace
+      shell: bash
+      run: >
+        colcon build --cmake-args
+        -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+        -DPYBIND11_TEST=OFF
+        -DBUILD_TESTING=OFF
     
