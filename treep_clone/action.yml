@@ -18,6 +18,7 @@ runs:
     # Create the build folders
     #
     - name: Create separate environment for build and source dependencies.
+      shell: bash
       run: >
         mkdir -p ${{github.workspace}}/build &&
         mkdir -p ${{github.workspace}}/devel/workspace/src
@@ -35,6 +36,7 @@ runs:
         done
 
     - name: Treep clone the repositories or projects.
+      shell: bash
       working-directory: ${{github.workspace}}/devel/
       run: >
         IFS=':' read -ra projects_or_repos <<< "$INPUT_PROJECTS_OR_REPOS" &&
