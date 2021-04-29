@@ -1,17 +1,18 @@
 name: 'Treep clone'
 description: '"git clone" and "treep --clone" downloading sources.'
 
+inputs:
+  treep_configurations:
+    description: 'Treep configurations to clone'
+    required: false
+    default: ''
+  projects_or_repos:
+    description: 'Semi colon (:) separated list of repositories to clone.'
+    required: false
+    default: ''
+
 runs:
   using: "composite"
-  inputs:
-    treep_configurations:
-      description: 'Treep configurations to clone'
-      required: false
-      default: ''
-    projects_or_repos:
-      description: 'Semi colon (:) separated list of repositories to clone.'
-      required: false
-      default: ''
   steps:
     #
     # Activate the secret ssh key

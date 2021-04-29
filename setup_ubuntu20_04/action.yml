@@ -1,19 +1,49 @@
 name: 'Setup Ubuntu20.04'
 description: 'Install all the needed standard packages using apt and pip.'
+
 runs:
   using: "composite"
   steps:
     #
     # build and install all dependencies.
     #
-    - run: >
-        sudo apt update && sudo apt install -y
-        build-essential python3-pip cmake libcereal-dev	libyaml-cpp-dev
-        libboost-all-dev libgtest-dev libeigen3-dev libedit-dev doxygen
-        libncurses5-dev freeglut3-dev libxmu-dev git ssh lsb-release
 
-    - run: >
-        sudo -H pip3 install "setuptools>=40.0" && sudo -H pip3 install
-        colcon-common-extensions treep fyplot pyside2 empy flake8 m2r sphinx
-        pyjson recommonmark sphinx_rtd_theme sphinxcontrib-moderncmakedomain
-        breathe pytest
+    # apt dependencies.
+    - run: sudo apt update && \
+        sudo apt install -y \
+          build-essential\
+          python3-pip \
+          cmake \
+          libcereal-dev \
+          libyaml-cpp-dev \
+          libboost-all-dev \
+          libgtest-dev \
+          libeigen3-dev \
+          libedit-dev \
+          doxygen \
+          libncurses5-dev \
+          freeglut3-dev \
+          libxmu-dev \
+          git \
+          ssh \
+          lsb-release
+      shell: bash
+
+    # pip dependencies.
+    - run: sudo -H pip3 install \
+        "setuptools>=40.0"
+        colcon-common-extensions \
+        treep \
+        fyplot \
+        pyside2 \
+        empy \
+        flake8 \
+        m2r \
+        sphinx \
+        pyjson \
+        recommonmark \
+        sphinx_rtd_theme \
+        sphinxcontrib-moderncmakedomain \
+        breathe \
+        pytest
+      shell: bash
