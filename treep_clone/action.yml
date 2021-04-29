@@ -23,6 +23,12 @@ runs:
         mkdir -p ${BUILD_FOLDER} &&
         mkdir -p ${DEVEL_FOLDER}/workspace/src
 
+    - name: debug
+      shell: bash
+      run: >
+        echo 'input_treep_configurations: ' $INPUT_TREEP_CONFIGURATIONS &&
+        echo 'input_projects_or_repos: ' $INPUT_PROJECTS_OR_REPOS
+
     #
     # Clone all.
     #
