@@ -25,8 +25,8 @@ runs:
 
     - name: debug
       shell: bash
-      run: >
-        echo 'input_treep_configurations: ' ${{ inputs.treep_configurations }} &&
+      run: | 
+        echo 'input_treep_configurations: ' ${{ inputs.treep_configurations }}
         echo 'input_projects_or_repos: ' ${{ inputs.projects_or_repos }}
 
     #
