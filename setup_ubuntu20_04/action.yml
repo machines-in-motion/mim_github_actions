@@ -4,13 +4,6 @@ runs:
   using: "composite"
   steps:
     #
-    # Activate the secret ssh key
-    #
-    - uses: webfactory/ssh-agent@v0.5.2
-      with:
-        ssh-private-key: ${{ secrets.GA_SSH_PRIVATE_KEY }}
-
-    #
     # build and install all dependencies.
     #
     - name: Install apt dependencies.

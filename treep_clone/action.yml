@@ -1,7 +1,5 @@
 name: 'Treep clone'
-description: >
-   'Use "git clone" and "treep --clone" to download the desired package
-    sources.'
+description: '"git clone" and "treep --clone" downloading sources.'
 
 runs:
   using: "composite"
@@ -18,7 +16,8 @@ runs:
     #
     # Activate the secret ssh key
     #
-    - uses: webfactory/ssh-agent@v0.5.2
+    - name: Spawn ssh-agent
+      uses: webfactory/ssh-agent@v0.5.2
       with:
         ssh-private-key: ${{ secrets.GA_SSH_PRIVATE_KEY }}
 
