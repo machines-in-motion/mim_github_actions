@@ -26,8 +26,8 @@ runs:
     - name: debug
       shell: bash
       run: >
-        echo 'input_treep_configurations: ' $INPUT_TREEP_CONFIGURATIONS &&
-        echo 'input_projects_or_repos: ' $INPUT_PROJECTS_OR_REPOS
+        echo 'input_treep_configurations: ' ${{ inputs.treep_configurations }} &&
+        echo 'input_projects_or_repos: ' ${{ inputs.projects_or_repos }}
 
     #
     # Clone all.
@@ -36,7 +36,7 @@ runs:
       shell: bash
       working-directory: ${{github.workspace}}/devel/
       run: >
-        IFS=':' read -ra configurations <<< "$INPUT_TREEP_CONFIGURATIONS" &&
+        IFS=':' read -ra configurations <<< "${{ inputs.treep_configurations }}" &&
         for configuration in "${configurations[@]}"; do
           echo git clone $configuration &&
           git clone $configuration ;
@@ -46,7 +46,7 @@ runs:
       shell: bash
       working-directory: ${{github.workspace}}/devel/
       run: >
-        IFS=':' read -ra projects_or_repos <<< "$INPUT_PROJECTS_OR_REPOS" &&
+        IFS=':' read -ra projects_or_repos <<< "${{ inputs.projects_or_repos }}" &&
         for project_or_repo in "${projects_or_repos[@]}"; do
           echo treep --clone $project_or_repo &&
           treep --clone $project_or_repo ;
