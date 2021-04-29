@@ -15,14 +15,6 @@ runs:
   using: "composite"
   steps:
     #
-    # Activate the secret ssh key
-    #
-    - name: Spawn ssh-agent
-      uses: webfactory/ssh-agent@v0.5.2
-      with:
-        ssh-private-key: ${{ secrets.GA_SSH_PRIVATE_KEY }}
-
-    #
     # Create the build folders
     #
     - name: Create separate environment for build and source dependencies.
