@@ -1,14 +1,14 @@
 name: 'Clone and build'
-description: '"git clone" and "treep --clone" downloading sources.'
+description: 'download sources in a workspace and build them.'
 
 inputs:
   treep_configurations:
     description: 'Treep configurations to clone'
-    required: false
+    required: true
     default: ''
   projects_or_repos:
     description: 'Semi colon (:) separated list of repositories to clone.'
-    required: false
+    required: true
     default: ''
 
 runs:
@@ -26,8 +26,8 @@ runs:
     - name: debug
       shell: bash
       run: | 
-        echo 'input_treep_configurations: ' ${{ inputs.treep_configurations }}
-        echo 'input_projects_or_repos: ' ${{ inputs.projects_or_repos }}
+        echo "input_treep_configurations: ${{ inputs.treep_configurations }}"
+        echo "input_projects_or_repos: ' ${{ inputs.projects_or_repos }}"
 
     #
     # Clone all.
