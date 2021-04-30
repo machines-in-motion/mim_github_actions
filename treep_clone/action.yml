@@ -27,7 +27,7 @@ runs:
       shell: bash
       run: | 
         echo "input_treep_configurations: ${{ inputs.treep_configurations }}"
-        echo "input_projects_or_repos: ' ${{ inputs.projects_or_repos }}"
+        echo "input_projects_or_repos: ${{ inputs.projects_or_repos }}"
 
     #
     # Clone all.
