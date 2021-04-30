@@ -52,21 +52,7 @@ Here are samples of code to use the actions present in this package.
   uses: machines-in-motion/mim_github_actions/cmake_build_and_ctest@main
 ```
 
-#### API documentation
-
-*How to build the API html doc.*
-*Where to find the last built doc on the internet.*
-
 ### License and Copyrights
 
-*update the date if it is a new package*
-
 License BSD-3-Clause
-Copyright (c) 2019, New York University and Max Planck Gesellschaft.
-
-
-
-
-# mim_github_actions
-
-
+Copyright (c) 2021, New York University and Max Planck Gesellschaft.
