@@ -58,9 +58,13 @@ runs:
     - name: Build the dependencies.
       working-directory: ${{github.workspace}}/devel/workspace
       shell: bash
-      run: >
-        colcon build --cmake-args
-        -DCMAKE_BUILD_TYPE=$BUILD_TYPE
-        -DPYBIND11_TEST=OFF
-        -DBUILD_TESTING=OFF
+      run: |
+        echo colcon build --cmake-args \
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DPYBIND11_TEST=OFF \
+          -DBUILD_TESTING=OFF
+        colcon build --cmake-args \
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DPYBIND11_TEST=OFF \
+          -DBUILD_TESTING=OFF
     
