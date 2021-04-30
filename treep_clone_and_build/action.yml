@@ -1,0 +1,70 @@
+name: 'Clone and build'
+description: 'download sources in a workspace and build them.'
+
+inputs:
+  treep_configurations:
+    description: 'Treep configurations to clone'
+    required: true
+    default: ''
+  projects_or_repos:
+    description: 'Semi colon (;) separated list of repositories to clone.'
+    required: true
+    default: ''
+
+runs:
+  using: "composite"
+  steps:
+    #
+    # Create the build folders
+    #
+    - name: Create separate environment for build and source dependencies.
+      shell: bash
+      run: >
+        mkdir -p ${BUILD_FOLDER} &&
+        mkdir -p ${DEVEL_FOLDER}/workspace/src
+
+    - name: Debug
+      shell: bash
+      run: | 
+        echo "input_treep_configurations: ${{ inputs.treep_configurations }}"
+        echo "input_projects_or_repos: ${{ inputs.projects_or_repos }}"
+
+    #
+    # Clone all.
+    #
+    - name: Clone the treep configurations.
+      shell: bash
+      working-directory: ${{github.workspace}}/devel/
+      run: >
+        IFS=';' read -ra configurations <<< "${{ inputs.treep_configurations }}" &&
+        for configuration in "${configurations[@]}"; do
+          echo git clone $configuration ;
+          git clone $configuration ;
+        done
+
+    - name: Treep clone the repositories or projects.
+      shell: bash
+      working-directory: ${{github.workspace}}/devel/
+      run: >
+        IFS=';' read -ra projects_or_repos <<< "${{ inputs.projects_or_repos }}" &&
+        for project_or_repo in "${projects_or_repos[@]}"; do
+          echo treep --clone $project_or_repo ;
+          treep --clone $project_or_repo ;
+        done
+
+    #
+    # Build the source dependencies
+    #
+    - name: Build the dependencies.
+      working-directory: ${{github.workspace}}/devel/workspace
+      shell: bash
+      run: |
+        echo colcon build --cmake-args \
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DPYBIND11_TEST=OFF \
+          -DBUILD_TESTING=OFF
+        colcon build --cmake-args \
+          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+          -DPYBIND11_TEST=OFF \
+          -DBUILD_TESTING=OFF
+    
