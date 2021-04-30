@@ -52,6 +52,14 @@ Here are samples of code to use the actions present in this package.
   uses: machines-in-motion/mim_github_actions/cmake_build_and_ctest@main
 ```
 
+#### Full example
+
+In this example we also used a private ssh key to clone the additional sources
+we needed:
+
+https://github.com/machines-in-motion/package_template/blob/master/.github/workflows/ci_ubuntu_18_04_release.yml
+
+
 ### License and Copyrights
 
 License BSD-3-Clause
