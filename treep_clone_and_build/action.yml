@@ -7,7 +7,7 @@ inputs:
     required: true
     default: ''
   projects_or_repos:
-    description: 'Semi colon (;) separated list of repositories to clone.'
+    description: 'New line separated list of repositories to clone.'
     required: true
     default: ''
 
@@ -36,7 +36,7 @@ runs:
       shell: bash
       working-directory: ${{github.workspace}}/devel/
       run: >
-        IFS=';' read -ra configurations <<< "${{ inputs.treep_configurations }}" &&
+        IFS='\n' read -ra configurations <<< "${{ inputs.treep_configurations }}" &&
         for configuration in "${configurations[@]}"; do
           echo git clone $configuration ;
           git clone $configuration ;
@@ -46,7 +46,7 @@ runs:
       shell: bash
       working-directory: ${{github.workspace}}/devel/
       run: >
-        IFS=';' read -ra projects_or_repos <<< "${{ inputs.projects_or_repos }}" &&
+        IFS='\n' read -ra projects_or_repos <<< "${{ inputs.projects_or_repos }}" &&
         for project_or_repo in "${projects_or_repos[@]}"; do
           echo treep --clone $project_or_repo ;
           treep --clone $project_or_repo ;
