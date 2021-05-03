@@ -10,6 +10,11 @@ inputs:
     description: 'New line separated list of repositories to clone.'
     required: true
     default: ''
+  devel_folder:
+    description: 'New line separated list of repositories to clone.'
+    required: true
+    default: '${{github.workspace}}/../devel'
+
 
 runs:
   using: "composite"
@@ -20,8 +25,7 @@ runs:
     - name: Create separate environment for build and source dependencies.
       shell: bash
       run: >
-        mkdir -p ${BUILD_FOLDER} &&
-        mkdir -p ${DEVEL_FOLDER}/workspace/src
+        mkdir -p ${{ inputs.devel_folder }}/workspace/src
 
     - name: Debug
       shell: bash
@@ -49,7 +53,7 @@ runs:
     #
     - name: Clone the treep configurations.
       shell: bash
-      working-directory: ${{github.workspace}}/devel/
+      working-directory: ${{ inputs.devel_folder }}
       run: |
         echo "Cloning treep configurations:"
         while IFS= read -r configuration
@@ -63,7 +67,7 @@ runs:
 
     - name: Treep clone the repositories or projects.
       shell: bash
-      working-directory: ${{github.workspace}}/devel/
+      working-directory: ${{ inputs.devel_folder }}
       run: |
         echo "Input project or repository names:"
         while IFS= read -r project_or_repo
@@ -79,7 +83,7 @@ runs:
     # Build the source dependencies
     #
     - name: Build the dependencies.
-      working-directory: ${{github.workspace}}/devel/workspace
+      working-directory: ${{ inputs.devel_folder }}/workspace
       shell: bash
       run: |
         echo colcon build --cmake-args \
