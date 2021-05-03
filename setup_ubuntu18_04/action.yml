@@ -51,3 +51,9 @@ runs:
           sphinxcontrib-moderncmakedomain \
           breathe \
           pytest
+
+    # Set python3.6 by default
+    - name: Set python3 by default
+      shell: bash
+      run: >
+        update-alternatives --install /usr/bin/python python /usr/bin/python3 1
