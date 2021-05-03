@@ -36,42 +36,42 @@ runs:
         while IFS= read -r project_or_repo
         do
           echo $project_or_repo
-        done <<< "${{ inputs.treep_configurations }}"
+        done <<< "${{ inputs.projects_or_repos }}"
 
-    #
-    # Clone all.
-    #
-    - name: Clone the treep configurations.
-      shell: bash
-      working-directory: ${{github.workspace}}/devel/
-      run: >
-        for configuration in ${${{ inputs.projects_or_repos }}[@]}; do
-          echo git clone $configuration ;
-          git clone $configuration ;
-        done
+    # #
+    # # Clone all.
+    # #
+    # - name: Clone the treep configurations.
+    #   shell: bash
+    #   working-directory: ${{github.workspace}}/devel/
+    #   run: >
+    #     for configuration in ${${{ inputs.projects_or_repos }}[@]}; do
+    #       echo git clone $configuration ;
+    #       git clone $configuration ;
+    #     done
 
-    - name: Treep clone the repositories or projects.
-      shell: bash
-      working-directory: ${{github.workspace}}/devel/
-      run: >
-        for project_or_repo in ${{ inputs.projects_or_repos }}; do
-          echo treep --clone $project_or_repo ;
-          treep --clone $project_or_repo ;
-        done
+    # - name: Treep clone the repositories or projects.
+    #   shell: bash
+    #   working-directory: ${{github.workspace}}/devel/
+    #   run: >
+    #     for project_or_repo in ${{ inputs.projects_or_repos }}; do
+    #       echo treep --clone $project_or_repo ;
+    #       treep --clone $project_or_repo ;
+    #     done
 
-    #
-    # Build the source dependencies
-    #
-    - name: Build the dependencies.
-      working-directory: ${{github.workspace}}/devel/workspace
-      shell: bash
-      run: |
-        echo colcon build --cmake-args \
-          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-          -DPYBIND11_TEST=OFF \
-          -DBUILD_TESTING=OFF
-        colcon build --cmake-args \
-          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-          -DPYBIND11_TEST=OFF \
-          -DBUILD_TESTING=OFF
+    # #
+    # # Build the source dependencies
+    # #
+    # - name: Build the dependencies.
+    #   working-directory: ${{github.workspace}}/devel/workspace
+    #   shell: bash
+    #   run: |
+    #     echo colcon build --cmake-args \
+    #       -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+    #       -DPYBIND11_TEST=OFF \
+    #       -DBUILD_TESTING=OFF
+    #     colcon build --cmake-args \
+    #       -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+    #       -DPYBIND11_TEST=OFF \
+    #       -DBUILD_TESTING=OFF
     
