@@ -6,20 +6,23 @@ inputs:
     description: 'Arguments to give to CMake.'
     required: true
     default: ''
+  build_dir:
+    required: true
+    default: '${{github.workspace}}/../build'
 
 runs:
   using: "composite"
   steps:
     - name: Configure CMake
       shell: bash
-      working-directory: ${{github.workspace}}/build
+      working-directory: ${{ inputs.cmake_args }}
       run: |
         echo cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE ${{ inputs.cmake_args }}
         source ${{github.workspace}}/devel/workspace/install/setup.bash
         cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE ${{ inputs.cmake_args }}
 
     - name: Build
-      working-directory: ${{github.workspace}}/build
+      working-directory: ${{ inputs.cmake_args }}
       shell: bash
       run: |
         echo cmake --build . --config $BUILD_TYPE ${{ inputs.cmake_args }}
@@ -27,7 +30,7 @@ runs:
         cmake --build . --config $BUILD_TYPE ${{ inputs.cmake_args }}
 
     - name: Test
-      working-directory: ${{github.workspace}}/build
+      working-directory: ${{ inputs.cmake_args }}
       shell: bash
       run: |
         echo env CTEST_OUTPUT_ON_FAILURE=1 ctest -C $BUILD_TYPE
