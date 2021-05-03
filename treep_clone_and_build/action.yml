@@ -1,20 +1,19 @@
-name: 'Clone and build'
-description: 'download sources in a workspace and build them.'
+name: "Clone and build"
+description: "download sources in a workspace and build them."
 
 inputs:
   treep_configurations:
-    description: 'Treep configurations to clone'
+    description: "Treep configurations to clone"
     required: true
-    default: ''
+    default: ""
   projects_or_repos:
-    description: 'New line separated list of repositories to clone.'
+    description: "New line separated list of repositories to clone."
     required: true
-    default: ''
+    default: ""
   devel_folder:
-    description: 'New line separated list of repositories to clone.'
+    description: "New line separated list of repositories to clone."
     required: true
-    default: '${{github.workspace}}/../devel'
-
+    default: "${{github.workspace}}/../devel"
 
 runs:
   using: "composite"
@@ -29,7 +28,7 @@ runs:
 
     - name: Debug
       shell: bash
-      run: | 
+      run: |
         echo "Input treep configurations:"
         while IFS= read -r configuration
         do
@@ -94,4 +93,3 @@ runs:
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DPYBIND11_TEST=OFF \
           -DBUILD_TESTING=OFF
-    

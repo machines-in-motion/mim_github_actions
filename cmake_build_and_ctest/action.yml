@@ -1,28 +1,32 @@
-name: 'CMake, Build, and CTest'
-description: 'Apply CMake on the checkout repository, build it and apply CTest.'
+name: "CMake, Build, and CTest"
+description: "Apply CMake on the checkout repository, build it and apply CTest."
 
 inputs:
   cmake_args:
-    description: 'Arguments to give to CMake.'
+    description: "Arguments to give to CMake."
     required: true
-    default: ''
+    default: ""
   build_dir:
     required: true
-    default: '${{github.workspace}}/../build'
+    default: "${{github.workspace}}/../build"
 
 runs:
   using: "composite"
   steps:
+    - name: Create build dir
+      shell: bash
+      run: mkdir -p ${{ inputs.build_dir }}
+
     - name: Configure CMake
       shell: bash
-      working-directory: ${{ inputs.cmake_args }}
+      working-directory: ${{ inputs.build_dir }}
       run: |
-        echo cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE ${{ inputs.cmake_args }}
+        echo cmake ${{github.workspace}} -DCMAKE_BUILD_TYPE=$BUILD_TYPE ${{ inputs.cmake_args }}
         source ${{github.workspace}}/devel/workspace/install/setup.bash
-        cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE ${{ inputs.cmake_args }}
+        cmake ${{github.workspace}} -DCMAKE_BUILD_TYPE=$BUILD_TYPE ${{ inputs.cmake_args }}
 
     - name: Build
-      working-directory: ${{ inputs.cmake_args }}
+      working-directory: ${{ inputs.build_dir }}
       shell: bash
       run: |
         echo cmake --build . --config $BUILD_TYPE ${{ inputs.cmake_args }}
@@ -30,10 +34,9 @@ runs:
         cmake --build . --config $BUILD_TYPE ${{ inputs.cmake_args }}
 
     - name: Test
-      working-directory: ${{ inputs.cmake_args }}
+      working-directory: ${{ inputs.build_dir }}
       shell: bash
       run: |
         echo env CTEST_OUTPUT_ON_FAILURE=1 ctest -C $BUILD_TYPE
         source ${{github.workspace}}/devel/workspace/install/setup.bash &&
         env CTEST_OUTPUT_ON_FAILURE=1 ctest -C $BUILD_TYPE
-    
