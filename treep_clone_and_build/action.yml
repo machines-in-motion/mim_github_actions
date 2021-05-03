@@ -29,13 +29,19 @@ runs:
         echo "Input treep configurations:"
         while IFS= read -r configuration
         do
-          echo "  - $configuration"
+          if [ -z "$configuration" ]
+          then
+            echo "  - $configuration"
+          fi
         done <<< "${{ inputs.treep_configurations }}"
 
         echo "Input project or repository names:"
         while IFS= read -r project_or_repo
         do
-          echo "  - $project_or_repo"
+          if [ -z "$project_or_repo" ]
+          then
+            echo "  - $project_or_repo"
+          fi
         done <<< "${{ inputs.projects_or_repos }}"
 
     #
@@ -48,8 +54,11 @@ runs:
         echo "Cloning treep configurations:"
         while IFS= read -r configuration
         do
-          echo "- git clone $configuration"
-          git clone $configuration ;
+          if [ -z "$configuration" ]
+          then
+            echo "- git clone $configuration"
+            git clone $configuration ;
+          fi
         done <<< "${{ inputs.treep_configurations }}"
 
     - name: Treep clone the repositories or projects.
@@ -59,8 +68,11 @@ runs:
         echo "Input project or repository names:"
         while IFS= read -r project_or_repo
         do
-          echo "treep --clone $project_or_repo"
-          treep --clone $project_or_repo
+          if [ -z "$project_or_repo" ]
+          then
+            echo "treep --clone $project_or_repo"
+            treep --clone $project_or_repo
+          fi
         done <<< "${{ inputs.projects_or_repos }}"
 
     #
