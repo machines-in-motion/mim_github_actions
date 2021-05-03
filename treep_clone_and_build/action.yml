@@ -57,7 +57,7 @@ runs:
           if [ -n "$configuration" ]
           then
             echo "- git clone $configuration"
-            git clone $configuration ;
+            git clone $configuration
           fi
         done <<< "${{ inputs.treep_configurations }}"
 
