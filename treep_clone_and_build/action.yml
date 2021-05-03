@@ -50,7 +50,7 @@ runs:
     - name: Clone the treep configurations.
       shell: bash
       working-directory: ${{github.workspace}}/devel/
-      run: >
+      run: |
         echo "Cloning treep configurations:"
         while IFS= read -r configuration
         do
@@ -64,7 +64,7 @@ runs:
     - name: Treep clone the repositories or projects.
       shell: bash
       working-directory: ${{github.workspace}}/devel/
-      run: >
+      run: |
         echo "Input project or repository names:"
         while IFS= read -r project_or_repo
         do
