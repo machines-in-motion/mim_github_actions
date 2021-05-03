@@ -27,11 +27,13 @@ runs:
       shell: bash
       run: | 
         echo "Input treep configurations:"
-        for configuration in ${{ inputs.treep_configurations }}; do
+        for configuration in ${{ inputs.treep_configurations }}
+        do
           echo "  - $configuration"
         done
         echo "Input project or repository names:"
-        for project_or_repo in ${{ inputs.projects_or_repos }}; do
+        for project_or_repo in ${{ inputs.projects_or_repos }}
+        do
           echo "  - $project_or_repo"
         done
 
