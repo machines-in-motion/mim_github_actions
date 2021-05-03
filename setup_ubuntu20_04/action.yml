@@ -47,3 +47,10 @@ runs:
         breathe \
         pytest
       shell: bash
+
+    # Setup git account:
+    - name: Set git account
+      shell: bash
+      run: |
+        git config --global user.email "mnaveau@tue.mpg.de"
+        git config --global user.name "MPI-IS-BambooAgent"

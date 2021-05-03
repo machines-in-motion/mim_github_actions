@@ -57,3 +57,10 @@ runs:
       shell: bash
       run: >
         sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+
+    # Setup git account:
+    - name: Set git account
+      shell: bash
+      run: |
+        git config --global user.email "mnaveau@tue.mpg.de"
+        git config --global user.name "MPI-IS-BambooAgent"

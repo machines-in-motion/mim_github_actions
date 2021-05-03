@@ -33,8 +33,4 @@ runs:
         echo env CTEST_OUTPUT_ON_FAILURE=1 ctest -C $BUILD_TYPE
         source ${{github.workspace}}/devel/workspace/install/setup.bash &&
         env CTEST_OUTPUT_ON_FAILURE=1 ctest -C $BUILD_TYPE
-
-
-
-
     
