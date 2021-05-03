@@ -27,15 +27,16 @@ runs:
       shell: bash
       run: | 
         echo "Input treep configurations:"
-        for configuration in ${{ inputs.treep_configurations }}
+        while IFS= read -r configuration
         do
-          echo "  - $configuration"
-        done
+          echo $configuration
+        done <<< "${{ inputs.treep_configurations }}"
+
         echo "Input project or repository names:"
-        for project_or_repo in ${{ inputs.projects_or_repos }}
+        while IFS= read -r project_or_repo
         do
-          echo "  - $project_or_repo"
-        done
+          echo $project_or_repo
+        done <<< "${{ inputs.treep_configurations }}"
 
     #
     # Clone all.
