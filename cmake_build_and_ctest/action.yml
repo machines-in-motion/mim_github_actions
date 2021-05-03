@@ -22,7 +22,6 @@ runs:
       working-directory: ${{ inputs.build_dir }}
       run: |
         echo cmake ${{github.workspace}} -DCMAKE_BUILD_TYPE=$BUILD_TYPE ${{ inputs.cmake_args }}
-        source ${{github.workspace}}/devel/workspace/install/setup.bash
         cmake ${{github.workspace}} -DCMAKE_BUILD_TYPE=$BUILD_TYPE ${{ inputs.cmake_args }}
 
     - name: Build
@@ -30,7 +29,6 @@ runs:
       shell: bash
       run: |
         echo cmake --build . --config $BUILD_TYPE ${{ inputs.cmake_args }}
-        source ${{github.workspace}}/devel/workspace/install/setup.bash
         cmake --build . --config $BUILD_TYPE ${{ inputs.cmake_args }}
 
     - name: Test
@@ -38,5 +36,4 @@ runs:
       shell: bash
       run: |
         echo env CTEST_OUTPUT_ON_FAILURE=1 ctest -C $BUILD_TYPE
-        source ${{github.workspace}}/devel/workspace/install/setup.bash &&
         env CTEST_OUTPUT_ON_FAILURE=1 ctest -C $BUILD_TYPE
