@@ -30,9 +30,9 @@ runs:
       working-directory: ${{github.workspace}}/build
       shell: bash
       run: |
-        echo env CTEST_OUTPUT_ON_FAILURE=1 ctest -C $BUILD_TYPE ${{ inputs.cmake_args }}
+        echo env CTEST_OUTPUT_ON_FAILURE=1 ctest -C $BUILD_TYPE
         source ${{github.workspace}}/devel/workspace/install/setup.bash &&
-        env CTEST_OUTPUT_ON_FAILURE=1 ctest -C $BUILD_TYPE ${{ inputs.cmake_args }}
+        env CTEST_OUTPUT_ON_FAILURE=1 ctest -C $BUILD_TYPE
 
 
 
