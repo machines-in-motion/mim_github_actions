@@ -50,7 +50,8 @@ runs:
           sphinx_rtd_theme \
           sphinxcontrib-moderncmakedomain \
           breathe \
-          pytest
+          pytest \
+          gcovr
 
     # Set python3.6 by default
     - name: Set python3 by default
