@@ -15,6 +15,11 @@ inputs:
     required: true
     default: "${{github.workspace}}/../devel"
 
+outputs:
+  setup_file:
+    description: 'Path to the setup.bash'
+    value: ${{ inputs.devel_folder }}/workspace/install/setup.bash
+
 runs:
   using: "composite"
   steps:
@@ -93,20 +98,3 @@ runs:
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DPYBIND11_TEST=OFF \
           -DBUILD_TESTING=OFF
-
-    #
-    # Export environment
-    #
-    - name: export environment
-      shell: bash
-      run: |
-        source ${{ inputs.devel_folder }}/workspace/install/setup.bash
-        echo "$LD_LIBRARY_PATH" >> $GITHUB_LD_LIBRARY_PATH
-        echo "$AMENT_PREFIX_PATH" >> $GITHUB_AMENT_PREFIX_PATH
-        echo "$CMAKE_MODULE_PATH" >> $GITHUB_CMAKE_MODULE_PATH
-        echo "$CMAKE_PREFIX_PATH" >> $GITHUB_CMAKE_PREFIX_PATH
-        echo "$COLCON_PREFIX_PATH" >> $GITHUB_COLCON_PREFIX_PATH
-        echo "$PYTHONPATH" >> $GITHUB_PYTHONPATH
-        echo "$PATH" >> $GITHUB_PATH
-        echo "$ROS_PACKAGE_PATH" >> $GITHUB_ROS_PACKAGE_PATH
-        echo "$PKG_CONFIG_PATH" >> $GITHUB_PKG_CONFIG_PATH
