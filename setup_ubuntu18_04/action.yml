@@ -12,23 +12,23 @@ runs:
     - name: "apt install"
       shell: bash 
       run: |
-        sudo apt update && \
-          sudo apt install -y build-essential \
-          python3-pip \
-          cmake \
-          libcereal-dev \
-          libyaml-cpp-dev \
-          libboost-all-dev \
-          libgtest-dev \
-          libeigen3-dev \
-          libedit-dev \
-          doxygen \
-          libncurses5-dev \
-          freeglut3-dev \
-          libxmu-dev \
-          git \
-          ssh \
-          lsb-release
+        sudo apt update
+        sudo apt install -y build-essential
+        sudo apt install -y python3-pip
+        sudo apt install -y cmake
+        sudo apt install -y libcereal-dev
+        sudo apt install -y libyaml-cpp-dev
+        sudo apt install -y libboost-all-dev
+        sudo apt install -y libgtest-dev
+        sudo apt install -y libeigen3-dev
+        sudo apt install -y libedit-dev
+        sudo apt install -y doxygen
+        sudo apt install -y libncurses5-dev
+        sudo apt install -y freeglut3-dev
+        sudo apt install -y libxmu-dev
+        sudo apt install -y git
+        sudo apt install -y ssh
+        sudo apt install -y lsb-release
       
 
     # pip dependencies.
@@ -37,22 +37,21 @@ runs:
       run: |
         sudo -H pip3 install -U pip
         sudo -H pip3 install -U "setuptools>=40.0"
-        sudo -H pip3 install -U \
-          colcon-common-extensions \
-          treep \
-          fyplot \
-          pyside2 \
-          empy \
-          flake8 \
-          m2r \
-          sphinx \
-          pyjson \
-          recommonmark \
-          sphinx_rtd_theme \
-          sphinxcontrib-moderncmakedomain \
-          breathe \
-          pytest \
-          gcovr
+        sudo -H pip3 install -U colcon-common-extensions
+        sudo -H pip3 install -U treep
+        sudo -H pip3 install -U fyplot
+        sudo -H pip3 install -U pyside2
+        sudo -H pip3 install -U empy
+        sudo -H pip3 install -U flake8
+        sudo -H pip3 install -U m2r
+        sudo -H pip3 install -U sphinx
+        sudo -H pip3 install -U pyjson
+        sudo -H pip3 install -U recommonmark
+        sudo -H pip3 install -U sphinx_rtd_theme
+        sudo -H pip3 install -U sphinxcontrib-moderncmakedomain
+        sudo -H pip3 install -U breathe
+        sudo -H pip3 install -U pytest
+        sudo -H pip3 install -U gco
 
     # Set python3.6 by default
     - name: Set python3 by default
