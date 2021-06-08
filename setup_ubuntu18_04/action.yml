@@ -40,23 +40,23 @@ runs:
     - name: "pip install"
       shell: bash
       run: |
-        python3 -m pip install -U pip
-        python3 -m pip install -U "setuptools>=40.0"
-        python3 -m pip install -U colcon-common-extensions
-        python3 -m pip install -U treep
-        python3 -m pip install -U fyplot
-        python3 -m pip install -U pyside2
-        python3 -m pip install -U empy
-        python3 -m pip install -U flake8
-        python3 -m pip install -U m2r
-        python3 -m pip install -U sphinx
-        python3 -m pip install -U pyjson
-        python3 -m pip install -U recommonmark
-        python3 -m pip install -U sphinx_rtd_theme
-        python3 -m pip install -U sphinxcontrib-moderncmakedomain
-        python3 -m pip install -U breathe
-        python3 -m pip install -U pytest
-        python3 -m pip install -U gco
+        python3.6 -m pip install -U pip
+        python3.6 -m pip install -U "setuptools>=40.0"
+        python3.6 -m pip install -U colcon-common-extensions
+        python3.6 -m pip install -U treep
+        python3.6 -m pip install -U fyplot
+        python3.6 -m pip install -U pyside2
+        python3.6 -m pip install -U empy
+        python3.6 -m pip install -U flake8
+        python3.6 -m pip install -U m2r
+        python3.6 -m pip install -U sphinx
+        python3.6 -m pip install -U pyjson
+        python3.6 -m pip install -U recommonmark
+        python3.6 -m pip install -U sphinx_rtd_theme
+        python3.6 -m pip install -U sphinxcontrib-moderncmakedomain
+        python3.6 -m pip install -U breathe
+        python3.6 -m pip install -U pytest
+        python3.6 -m pip install -U gco
 
     # Setup git account:
     - name: Set git account
