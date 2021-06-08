@@ -29,7 +29,12 @@ runs:
         sudo apt install -y git
         sudo apt install -y ssh
         sudo apt install -y lsb-release
-      
+    
+    # Set python3.6 by default
+    - name: Set python3 by default
+      shell: bash
+      run: >
+        sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.6 1
 
     # pip dependencies.
     - name: "pip install"
@@ -52,12 +57,6 @@ runs:
         python3 -m pip install -U breathe
         python3 -m pip install -U pytest
         python3 -m pip install -U gco
-
-    # Set python3.6 by default
-    - name: Set python3 by default
-      shell: bash
-      run: >
-        sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
     # Setup git account:
     - name: Set git account
