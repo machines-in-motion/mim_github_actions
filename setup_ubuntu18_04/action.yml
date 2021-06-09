@@ -14,7 +14,7 @@ runs:
       run: |
         sudo apt update
         sudo apt install -y \
-          build-essential
+          build-essential \
           python3-pip \
           cmake \
           libcereal-dev \
