@@ -13,22 +13,23 @@ runs:
       shell: bash 
       run: |
         sudo apt update
-        sudo apt install -y build-essential
-        sudo apt install -y python3-pip
-        sudo apt install -y cmake
-        sudo apt install -y libcereal-dev
-        sudo apt install -y libyaml-cpp-dev
-        sudo apt install -y libboost-all-dev
-        sudo apt install -y libgtest-dev
-        sudo apt install -y libeigen3-dev
-        sudo apt install -y libedit-dev
-        sudo apt install -y doxygen
-        sudo apt install -y libncurses5-dev
-        sudo apt install -y freeglut3-dev
-        sudo apt install -y libxmu-dev
-        sudo apt install -y git
-        sudo apt install -y ssh
-        sudo apt install -y lsb-release
+        sudo apt install -y \
+          build-essential
+          python3-pip \
+          cmake \
+          libcereal-dev \
+          libyaml-cpp-dev \
+          libboost-all-dev \
+          libgtest-dev \
+          libeigen3-dev \
+          libedit-dev \
+          doxygen \
+          libncurses5-dev \
+          freeglut3-dev \
+          libxmu-dev \
+          git \
+          ssh \
+          lsb-release
     
     # Set python3.6 by default
     - name: Set python3 by default
@@ -42,21 +43,22 @@ runs:
       run: |
         python3.6 -m pip install -U pip
         python3.6 -m pip install -U "setuptools>=40.0"
-        python3.6 -m pip install -U colcon-common-extensions
-        python3.6 -m pip install -U treep
-        python3.6 -m pip install -U fyplot
-        python3.6 -m pip install -U pyside2
-        python3.6 -m pip install -U empy
-        python3.6 -m pip install -U flake8
-        python3.6 -m pip install -U m2r
-        python3.6 -m pip install -U sphinx
-        python3.6 -m pip install -U pyjson
-        python3.6 -m pip install -U recommonmark
-        python3.6 -m pip install -U sphinx_rtd_theme
-        python3.6 -m pip install -U sphinxcontrib-moderncmakedomain
-        python3.6 -m pip install -U breathe
-        python3.6 -m pip install -U pytest
-        python3.6 -m pip install -U gco
+        python3.6 -m pip install -U \
+          colcon-common-extensions \
+          treep \
+          fyplot \
+          pyside2 \
+          empy \
+          flake8 \
+          m2r \
+          sphinx \
+          pyjson \
+          recommonmark \
+          sphinx_rtd_theme \
+          sphinxcontrib-moderncmakedomain \
+          breathe \
+          pytest \
+          gcovr
 
     # Setup git account:
     - name: Set git account
