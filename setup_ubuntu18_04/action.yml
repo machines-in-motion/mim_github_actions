@@ -51,7 +51,7 @@ runs:
           empy \
           flake8 \
           m2r \
-          sphinx== \
+          sphinx \
           pyjson \
           recommonmark \
           sphinx_rtd_theme \
