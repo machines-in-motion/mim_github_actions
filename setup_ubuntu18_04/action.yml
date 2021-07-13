@@ -59,9 +59,7 @@ runs:
           breathe \
           pytest \
           gcovr
-    
-    # fix shpinx and tools vesrion
-    - name: "pip install"
+    - name: "fix shpinx and tools version"
       shell: bash
       run: |
         python3.6 -m pip install -I sphinx==3.0
