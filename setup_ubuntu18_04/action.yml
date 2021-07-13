@@ -51,7 +51,7 @@ runs:
           empy \
           flake8 \
           m2r \
-          sphinx \
+          sphinx== \
           pyjson \
           recommonmark \
           sphinx_rtd_theme \
@@ -59,6 +59,12 @@ runs:
           breathe \
           pytest \
           gcovr
+    
+    # fix shpinx and tools vesrion
+    - name: "pip install"
+      shell: bash
+      run: |
+        python3.6 -m pip install -I sphinx==3.0
 
     # Setup git account:
     - name: Set git account
