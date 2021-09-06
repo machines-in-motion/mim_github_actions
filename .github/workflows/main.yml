@@ -1,0 +1,111 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-18.04
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      #
+      # build and install all dependencies.
+      #
+
+      # apt dependencies.
+      - name: "apt install"
+        shell: bash 
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            build-essential \
+            python3-pip \
+            cmake \
+            libcereal-dev \
+            libyaml-cpp-dev \
+            libboost-all-dev \
+            libgtest-dev \
+            libeigen3-dev \
+            libedit-dev \
+            doxygen \
+            libncurses5-dev \
+            freeglut3-dev \
+            libxmu-dev \
+            git \
+            ssh \
+            lsb-release
+
+      # Set python3.6 by default
+      - name: Set python3 by default
+        shell: bash
+        run: >
+          sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.6 1
+      # pip dependencies.
+      - name: "pip install"
+        shell: bash
+        run: |
+          python3.6 -m pip install -U pip
+          python3.6 -m pip install -U "setuptools>=40.0"
+          python3.6 -m pip install -U \
+            colcon-common-extensions \
+            treep \
+            fyplot \
+            pyside2 \
+            empy \
+            flake8 \
+            m2r \
+            sphinx \
+            pyjson \
+            recommonmark \
+            sphinx_rtd_theme \
+            sphinxcontrib-moderncmakedomain \
+            breathe \
+            pytest \
+            gcovr \
+            xacro \
+            pybullet
+
+
+      # Add the robotpkg ppa. This contains the LAAS laboratory code base.
+      # Typically: pinocchio, dynamic-graph, gepetto-viewer, sot-core, ...
+      - name: "add the robotpkg ppa"
+        shell: bash
+        run: |
+          echo "deb [arch=amd64] http://robotpkg.openrobots.org/wip/packages/debian/pub $(lsb_release -sc) robotpkg" > /etc/apt/sources.list.d/robotpkg-openrobots.list \
+          echo "deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian/pub $(lsb_release -sc) robotpkg" >> /etc/apt/sources.list.d/robotpkg-openrobots.list \
+          curl http://robotpkg.openrobots.org/packages/deb
+      # LAAS dependencies.
+      - name: "apt install LAAS packages"
+        shell: bash 
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            robotpkg-py36-qt5-gepetto-viewer-corba \
+            robotpkg-hpp-fcl \
+            robotpkg-libccd \
+            robotpkg-octomap \
+            robotpkg-pinocchio \
+      - name: "fix shpinx and tools version"
+        shell: bash
+        run: |
+          python3.6 -m pip install -I sphinx==3.0
+      # Setup git account:
+      - name: Set git account
+        shell: bash
+        run: |
+          git config --global user.email "mnaveau@tue.mpg.de"
+          git config --global user.name "MPI-IS-BambooAgent"
