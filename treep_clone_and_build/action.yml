@@ -23,6 +23,15 @@ outputs:
 runs:
   using: "composite"
   steps:
+
+    #
+    # source all dependencies
+    #
+    
+    - name: Soure laas's packages
+      shell: bash
+      run: source /opt/openrobots/setup.bash
+
     #
     # Create the build folders
     #
@@ -83,6 +92,11 @@ runs:
           fi
         done <<< "${{ inputs.projects_or_repos }}"
 
+
+    - name: Build the dependencies.
+      shell: bash
+      run: ls /opt/openrobots/
+        
     #
     # Build the source dependencies
     #
@@ -90,11 +104,18 @@ runs:
       working-directory: ${{ inputs.devel_folder }}/workspace
       shell: bash
       run: |
-        echo colcon build --cmake-args \
-          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-          -DPYBIND11_TEST=OFF \
-          -DBUILD_TESTING=OFF
-        colcon build --cmake-args \
-          -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-          -DPYBIND11_TEST=OFF \
-          -DBUILD_TESTING=OFF
+        source /opt/openrobots/setup.bash
+        echo colcon build \
+          --parallel-workers 1 \
+          --event-handlers console_direct+ \
+          --cmake-args \
+            -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+            -DPYBIND11_TEST=OFF \
+            -DBUILD_TESTING=OFF
+        colcon build \
+          --parallel-workers 1 \
+          --event-handlers console_direct+ \
+          --cmake-args \
+            -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+            -DPYBIND11_TEST=OFF \
+            -DBUILD_TESTING=OFF

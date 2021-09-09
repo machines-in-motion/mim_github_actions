@@ -58,7 +58,9 @@ runs:
           sphinxcontrib-moderncmakedomain \
           breathe \
           pytest \
-          gcovr
+          gcovr \
+          xacro \
+          pybullet
     - name: "fix shpinx and tools version"
       shell: bash
       run: |

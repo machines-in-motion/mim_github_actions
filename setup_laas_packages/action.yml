@@ -1,0 +1,73 @@
+name: 'Setup laas packages'
+description: 'Install all the needed standard laas packages.'
+
+runs:
+  using: "composite"
+  steps:
+      # Add the robotpkg ppa. This contains the LAAS laboratory code base.
+      # Typically: pinocchio, dynamic-graph, gepetto-viewer, sot-core, ...
+      - name: "add the robotpkg ppa"
+        shell: bash
+        run: |
+          sudo sh -c 'echo "deb [arch=amd64] http://robotpkg.openrobots.org/wip/packages/debian/pub $(lsb_release -sc) robotpkg" > /etc/apt/sources.list.d/robotpkg-openrobots.list'
+          sudo sh -c 'echo "deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian/pub $(lsb_release -sc) robotpkg" >> /etc/apt/sources.list.d/robotpkg-openrobots.list'
+          curl http://robotpkg.openrobots.org/packages/deb
+          
+      # LAAS dependencies.
+      - name: "Update"
+        shell: bash 
+        run: |
+          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ADD535E05E56C3FD
+          sudo apt-get update --fix-missing
+          sudo apt-get -y install -f
+          sudo apt-get -y upgrade
+    
+      - name: "apt-cache"
+        shell: bash 
+        run: sudo apt-cache search robotpkg-
+
+      - name: "print robotpkg-openrobots.list"
+        shell: bash 
+        run: more /etc/apt/sources.list.d/robotpkg-openrobots.list
+        
+      - name: "apt install LAAS packages"
+        shell: bash 
+        run: |
+          sudo apt-cache search robotpkg-py36-qt5-gepetto-viewer-corba
+          sudo apt-get install -y \
+            robotpkg-py36-qt5-gepetto-viewer-corba \
+            robotpkg-hpp-fcl \
+            robotpkg-libccd \
+            robotpkg-octomap \
+            robotpkg-pinocchio \
+            robotpkg-parametric-curves \
+            robotpkg-simple-humanoid-description \
+            robotpkg-eigen-quadprog \
+            robotpkg-tsid \
+            robotpkg-dynamic-graph-v3 \
+            robotpkg-sot-core-v3 \
+            robotpkg-sot-tools-v3 \
+            robotpkg-sot-dynamic-pinocchio-v3 \
+            robotpkg-example-robot-data \
+            robotpkg-py36-tsid \
+            robotpkg-py36-dynamic-graph-v3 \
+            robotpkg-py36-eigenpy \
+            robotpkg-py36-pinocchio \
+            robotpkg-py36-parametric-curves \
+            robotpkg-py36-sot-core-v3 \
+            robotpkg-py36-quadprog \
+            robotpkg-py36-sot-dynamic-pinocchio-v3
+      
+      - name: "Install the setup.bash for that detup the environment variables"
+        shell: bash
+        run: |
+          sudo sh -c 'echo "#! /bin/bash" > /opt/openrobots/setup.bash'
+          sudo sh -c 'echo "" >> /opt/openrobots/setup.bash'
+          sudo sh -c 'echo "export PATH=\"/opt/openrobots/bin:\$PATH\"" >> /opt/openrobots/setup.bash'
+          sudo sh -c 'echo "export PKG_CONFIG_PATH=\"/opt/openrobots/lib/pkgconfig:\$PKG_CONFIG_PATH\"" >> /opt/openrobots/setup.bash'
+          sudo sh -c 'echo "export LD_LIBRARY_PATH=\"/opt/openrobots/lib:\$LD_LIBRARY_PATH\"" >> /opt/openrobots/setup.bash'
+          sudo sh -c 'echo "export LD_LIBRARY_PATH=\"/opt/openrobots/lib/dynamic-graph-plugins:\$LD_LIBRARY_PATH\"" >> /opt/openrobots/setup.bash'
+          sudo sh -c 'echo "export PYTHONPATH=\"/opt/openrobots/lib/python3.6/site-packages:\$PYTHONPATH\"" >> /opt/openrobots/setup.bash'
+          sudo sh -c 'echo "export ROS_PACKAGE_PATH=\"/opt/openrobots/share:\$ROS_PACKAGE_PATH\"" >> /opt/openrobots/setup.bash'
+          sudo sh -c 'echo "export CMAKE_PREFIX_PATH=\"/opt/openrobots:\$CMAKE_PREFIX_PATH\"" >> /opt/openrobots/setup.bash'
+          sudo chown -R root:root /opt/openrobots
