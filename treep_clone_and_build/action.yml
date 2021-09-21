@@ -83,6 +83,11 @@ runs:
           fi
         done <<< "${{ inputs.projects_or_repos }}"
 
+
+    - name: Build the dependencies.
+      shell: bash
+      run: ls /opt/openrobots/
+        
     #
     # Build the source dependencies
     #
@@ -90,6 +95,12 @@ runs:
       working-directory: ${{ inputs.devel_folder }}/workspace
       shell: bash
       run: |
+        if [ -f "/opt/openrobots/setup.bash" ]; then
+            source /opt/openrobots/setup.bash
+        fi
+        if [ -f "/opt/ros/dashing/setup.bash" ]; then
+            source /opt/ros/dashing/setup.bash
+        fi
         echo colcon build \
           --event-handlers console_direct+ \
           --cmake-args \
