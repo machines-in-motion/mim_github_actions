@@ -26,10 +26,10 @@ jobs:
       # Setup the machines and build environment
       #
       - name: Setup Ubuntu18.04.
-        uses: Lhumd/mim_github_actions/setup_ubuntu18_04@edaneshmand/update_action
+        uses: machines-in-motion/mim_github_actions/setup_ubuntu18_04@main
 
       #
       # Setup the machines and build environment
       #
       - name: Setup laas packages.
-        uses: Lhumd/mim_github_actions/setup_laas_packages@edaneshmand/update_action
+        uses: machines-in-motion/mim_github_actions/setup_laas_packages@main
