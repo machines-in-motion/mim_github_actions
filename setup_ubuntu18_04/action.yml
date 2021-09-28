@@ -60,6 +60,7 @@ runs:
           pytest \
           gcovr \
           xacro \
+          curl \
           pybullet
     - name: "fix shpinx and tools version"
       shell: bash
