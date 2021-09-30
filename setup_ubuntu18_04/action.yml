@@ -29,6 +29,7 @@ runs:
           libxmu-dev \
           git \
           ssh \
+          curl \
           lsb-release
     
     # Set python3.6 by default
@@ -60,7 +61,6 @@ runs:
           pytest \
           gcovr \
           xacro \
-          curl \
           pybullet
     - name: "fix shpinx and tools version"
       shell: bash
