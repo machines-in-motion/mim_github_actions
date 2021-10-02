@@ -9,11 +9,11 @@ runs:
     #
 
     # apt dependencies.
-    - name: "apt install"
+    - name: "apt-get install"
       shell: bash 
       run: |
-        sudo apt update
-        sudo apt install -y \
+        sudo apt-get update
+        sudo apt-get install -y \
           build-essential \
           python3-pip \
           cmake \
