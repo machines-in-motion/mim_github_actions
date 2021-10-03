@@ -82,11 +82,6 @@ runs:
             treep --clone $project_or_repo
           fi
         done <<< "${{ inputs.projects_or_repos }}"
-
-
-    - name: Build the dependencies.
-      shell: bash
-      run: ls /opt/openrobots/
         
     #
     # Build the source dependencies
