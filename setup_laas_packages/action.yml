@@ -21,21 +21,11 @@ runs:
           sudo apt-get update --fix-missing
           sudo apt-get -y install -f
           sudo apt-get -y upgrade
-    
-      - name: "apt-cache"
-        shell: bash 
-        run: sudo apt-cache search robotpkg-
-
-      - name: "print robotpkg-openrobots.list"
-        shell: bash 
-        run: more /etc/apt/sources.list.d/robotpkg-openrobots.list
         
       - name: "apt install LAAS packages"
         shell: bash 
         run: |
-          sudo apt-cache search robotpkg-py36-qt5-gepetto-viewer-corba
           sudo apt-get install -y \
-            robotpkg-py36-qt5-gepetto-viewer-corba \
             robotpkg-hpp-fcl \
             robotpkg-libccd \
             robotpkg-octomap \
@@ -48,15 +38,31 @@ runs:
             robotpkg-sot-core-v3 \
             robotpkg-sot-tools-v3 \
             robotpkg-sot-dynamic-pinocchio-v3 \
-            robotpkg-example-robot-data \
-            robotpkg-py36-tsid \
-            robotpkg-py36-dynamic-graph-v3 \
-            robotpkg-py36-eigenpy \
-            robotpkg-py36-pinocchio \
-            robotpkg-py36-parametric-curves \
-            robotpkg-py36-sot-core-v3 \
-            robotpkg-py36-quadprog \
-            robotpkg-py36-sot-dynamic-pinocchio-v3
+            robotpkg-example-robot-data
+          if [[ `lsb_release -d` == *"20.04"* ]]; then
+            sudo apt-get install -y \
+              robotpkg-py38-qt5-gepetto-viewer-corba \
+              robotpkg-py38-tsid \
+              robotpkg-py38-dynamic-graph-v3 \
+              robotpkg-py38-eigenpy \
+              robotpkg-py38-pinocchio \
+              robotpkg-py38-parametric-curves \
+              robotpkg-py38-sot-core-v3 \
+              robotpkg-py38-quadprog \
+              robotpkg-py38-sot-dynamic-pinocchio-v3
+          elif [[ `lsb_release -d` == *"18.04"* ]]; then
+            sudo apt-get install -y \
+              robotpkg-py36-qt5-gepetto-viewer-corba \
+              robotpkg-py36-tsid \
+              robotpkg-py36-dynamic-graph-v3 \
+              robotpkg-py36-eigenpy \
+              robotpkg-py36-pinocchio \
+              robotpkg-py36-parametric-curves \
+              robotpkg-py36-sot-core-v3 \
+              robotpkg-py36-quadprog \
+              robotpkg-py36-sot-dynamic-pinocchio-v3
+          fi
+          
       
       - name: "Install the setup.bash for that detup the environment variables"
         shell: bash
@@ -67,7 +73,11 @@ runs:
           sudo sh -c 'echo "export PKG_CONFIG_PATH=\"/opt/openrobots/lib/pkgconfig:\$PKG_CONFIG_PATH\"" >> /opt/openrobots/setup.bash'
           sudo sh -c 'echo "export LD_LIBRARY_PATH=\"/opt/openrobots/lib:\$LD_LIBRARY_PATH\"" >> /opt/openrobots/setup.bash'
           sudo sh -c 'echo "export LD_LIBRARY_PATH=\"/opt/openrobots/lib/dynamic-graph-plugins:\$LD_LIBRARY_PATH\"" >> /opt/openrobots/setup.bash'
-          sudo sh -c 'echo "export PYTHONPATH=\"/opt/openrobots/lib/python3.6/site-packages:\$PYTHONPATH\"" >> /opt/openrobots/setup.bash'
+          if [[ `lsb_release -d` == *"20.04"* ]]; then
+            sudo sh -c 'echo "export PYTHONPATH=\"/opt/openrobots/lib/python3.8/site-packages:\$PYTHONPATH\"" >> /opt/openrobots/setup.bash'
+          elif [[ `lsb_release -d` == *"18.04"* ]]; then
+            sudo sh -c 'echo "export PYTHONPATH=\"/opt/openrobots/lib/python3.6/site-packages:\$PYTHONPATH\"" >> /opt/openrobots/setup.bash'
+          fi
           sudo sh -c 'echo "export ROS_PACKAGE_PATH=\"/opt/openrobots/share:\$ROS_PACKAGE_PATH\"" >> /opt/openrobots/setup.bash'
           sudo sh -c 'echo "export CMAKE_PREFIX_PATH=\"/opt/openrobots:\$CMAKE_PREFIX_PATH\"" >> /opt/openrobots/setup.bash'
           sudo chown -R root:root /opt/openrobots
