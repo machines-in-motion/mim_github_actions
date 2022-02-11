@@ -26,7 +26,7 @@ jobs:
       # Setup the machines and build environment
       #
       - name: Setup Ubuntu18.04.
-        uses: machines-in-motion/mim_github_actions/setup_ubuntu18_04@Lhum/m2r
+        uses: machines-in-motion/mim_github_actions/setup_ubuntu18_04@main
 
       #
       # Setup the machines and build environment
