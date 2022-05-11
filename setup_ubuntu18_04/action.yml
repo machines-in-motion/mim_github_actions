@@ -43,6 +43,7 @@ runs:
       shell: bash
       run: |
         python3.6 -m pip install -U pip
+        python3.6 -m pip install -U wheel
         python3.6 -m pip install -U "setuptools>=40.0"
         python3.6 -m pip install -U \
           colcon-common-extensions \
