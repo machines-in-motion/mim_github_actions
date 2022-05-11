@@ -51,6 +51,7 @@ runs:
           pyside2 \
           empy \
           flake8 \
+          mistune \
           m2r \
           sphinx \
           pyjson \
