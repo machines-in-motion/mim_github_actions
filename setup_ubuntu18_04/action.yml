@@ -52,8 +52,8 @@ runs:
           pyside2 \
           empy \
           flake8 \
-          mistune \
           m2r \
+          mistune<2.0.0 \
           sphinx \
           pyjson \
           recommonmark \
