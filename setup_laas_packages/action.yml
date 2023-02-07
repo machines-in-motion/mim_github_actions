@@ -25,20 +25,6 @@ runs:
       - name: "apt install LAAS packages"
         shell: bash 
         run: |
-          sudo apt-get install -y \
-            robotpkg-hpp-fcl \
-            robotpkg-libccd \
-            robotpkg-octomap \
-            robotpkg-pinocchio \
-            robotpkg-parametric-curves \
-            robotpkg-simple-humanoid-description \
-            robotpkg-eigen-quadprog \
-            robotpkg-tsid \
-            robotpkg-dynamic-graph-v3 \
-            robotpkg-sot-core-v3 \
-            robotpkg-sot-tools-v3 \
-            robotpkg-sot-dynamic-pinocchio-v3 \
-            robotpkg-example-robot-data
           if [[ `lsb_release -d` == *"20.04"* ]]; then
             sudo apt-get install -y \
               robotpkg-py38-qt5-gepetto-viewer-corba \
