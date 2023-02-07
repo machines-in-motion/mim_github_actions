@@ -52,7 +52,8 @@ runs:
           sphinxcontrib-moderncmakedomain \
           breathe \
           pytest \
-          gcovr
+          gcovr \
+          breathing-cat
 
     # Setup git account:
     - name: Set git account
