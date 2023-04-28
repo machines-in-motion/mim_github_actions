@@ -53,7 +53,8 @@ runs:
           breathe \
           pytest \
           gcovr \
-          breathing-cat
+          breathing-cat \
+          xacro
 
     # Setup git account:
     - name: Set git account
